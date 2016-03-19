@@ -1,5 +1,5 @@
-CFLAGS = -Wall
-LFLAGS =
+CFLAGS = -std=c11 -Wall
+LFLAGS = -lm
 
 SRCS = evaluation.c mpc.c
 DIST_DIR = $(CURDIR)/bin
