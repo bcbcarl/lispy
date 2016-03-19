@@ -2,6 +2,8 @@
 
 http://www.buildyourownlisp.com/
 
+![screenshot](lispy.gif)
+
 ## Usage
 
 Run `./bin/evaluation`.
