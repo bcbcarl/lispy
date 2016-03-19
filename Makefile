@@ -1,9 +1,9 @@
 CFLAGS = -Wall
 LFLAGS =
 
-SRCS = parsing.c mpc.c
+SRCS = evaluation.c mpc.c
 DIST_DIR = $(CURDIR)/bin
-DIST = $(DIST_DIR)/parsing
+DIST = $(DIST_DIR)/evaluation
 TAGS = GPATH GRTAGS GTAGS TAGS
 
 OS := $(shell uname)
