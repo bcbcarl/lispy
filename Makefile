@@ -4,7 +4,7 @@ LFLAGS = -lm
 SRCS = evaluation.c mpc.c
 DIST_DIR = $(CURDIR)/bin
 DIST = $(DIST_DIR)/evaluation
-TAGS = GPATH GRTAGS GTAGS TAGS
+TAGS = GPATH GRTAGS GSYMS GTAGS TAGS
 
 OS := $(shell uname)
 GTAGS = $(shell command -v gtags || { echo "gtags not found." >&2; exit 1; })
