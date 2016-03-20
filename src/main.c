@@ -27,7 +27,7 @@ char* add_history(char* unused) {}
 
 #endif
 
-int main() {
+int main(void) {
 
   mpc_parser_t* Number = mpc_new("number");
   mpc_parser_t* Operator = mpc_new("operator");
