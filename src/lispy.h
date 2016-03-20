@@ -5,7 +5,7 @@
 
 typedef struct {
   int type;
-  long num;
+  double num;
   int err;
 } lval;
 
@@ -13,7 +13,7 @@ enum { LVAL_NUM, LVAL_ERR };
 enum { LERR_DIV_ZERO, LERR_BAD_OP, LERR_BAD_NUM };
 
 
-lval lval_num(long);
+lval lval_num(double);
 lval lval_err(int);
 void lval_print(lval);
 void lval_println(lval);
