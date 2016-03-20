@@ -33,5 +33,6 @@ lispy> max 1 5 3
 ## Development
 
 * `make`
+* `make test`
 * `make clean`
 * `make distclean`
