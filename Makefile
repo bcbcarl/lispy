@@ -2,12 +2,13 @@ CFLAGS = -std=c11 -Wall
 LFLAGS = -lm
 
 SRC_DIR = $(CURDIR)/src
+TEST_DIR = $(CURDIR)/tests
 DIST_DIR = $(CURDIR)/bin
 
-SRCS = $(SRC_DIR)/*.c
+SRC_MAIN = $(SRC_DIR)/main.c
+SRCS = $(SRC_DIR)/lispy.c $(SRC_DIR)/mpc.c
+TESTS = $(TEST_DIR)/lispy.c
 DIST = $(DIST_DIR)/lispy
-
-vpath %.c $(SRC_DIR)
 
 TAGS = GPATH GRTAGS GSYMS GTAGS TAGS
 
@@ -25,10 +26,16 @@ endif
 all: build
 
 .PHONY: build
-build: $(SRCS) $(GTAGS)
+build: $(SRC_MAIN) $(SRCS) $(GTAGS)
 	@$(GTAGS) .
 	@$(MKDIR) $(DIST_DIR)
-	@$(CC) $(CFLAGS) $(SRCS) $(LFLAGS) -o $(DIST)
+	@$(CC) $(CFLAGS) $(SRC_MAIN) $(SRCS) $(LFLAGS) -o $(DIST)
+
+.PHONY: test
+test: $(SRCS) $(TESTS)
+	@$(MKDIR) $(DIST_DIR)
+	@$(CC) $(CFLAGS) $(SRCS) $(TESTS) $(LFLAGS) -lcmocka -o $(DIST)_test
+	@$(DIST)_test
 
 .PHONY: distclean
 distclean: clean
