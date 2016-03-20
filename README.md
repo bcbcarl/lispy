@@ -32,6 +32,10 @@ lispy> max 1 5 3
 
 ## Development
 
+`make test` requires [cmocka](https://cmocka.org/).
+
+Targets:
+
 * `make`
 * `make test`
 * `make clean`
