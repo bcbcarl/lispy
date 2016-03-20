@@ -11,7 +11,7 @@ Run `./bin/evaluation`.
 ## Examples
 
 ```
-Lispy Version 0.0.0.0.3
+Lispy Version 0.0.0.0.4
 Press Ctrl+c to Exit
 
 lispy> + 5 6

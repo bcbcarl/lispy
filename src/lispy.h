@@ -3,13 +3,29 @@
 
 #include "mpc.h"
 
-long add(long, long);
-long sub(long, long);
-long mul(long, long);
-long mod(long, long);
-long min(long, long);
-long max(long, long);
-long eval_op(char*, long, long);
-long eval(mpc_ast_t*);
+typedef struct {
+  int type;
+  long num;
+  int err;
+} lval;
+
+enum { LVAL_NUM, LVAL_ERR };
+enum { LERR_DIV_ZERO, LERR_BAD_OP, LERR_BAD_NUM };
+
+
+lval lval_num(long);
+lval lval_err(int);
+void lval_print(lval);
+void lval_println(lval);
+lval add(lval, lval);
+lval sub(lval, lval);
+lval mul(lval, lval);
+lval division(lval, lval);
+lval mod(lval, lval);
+lval expt(lval, lval);
+lval min(lval, lval);
+lval max(lval, lval);
+lval eval_op(char*, lval, lval);
+lval eval(mpc_ast_t*);
 
 #endif

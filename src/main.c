@@ -1,7 +1,7 @@
 #include "mpc.h"
 #include "lispy.h"
 
-static const char* lispy_version = "0.0.0.0.3";
+static const char* lispy_version = "0.0.0.0.4";
 
 #ifdef _WIN32
 
@@ -54,9 +54,8 @@ int main(void) {
 
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Lispy, &r)) {
-      long result = eval(r.output);
-      printf("%li\n", result);
-
+      lval result = eval(r.output);
+      lval_println(result);
       mpc_ast_delete(r.output);
     } else {
       mpc_err_print(r.error);
