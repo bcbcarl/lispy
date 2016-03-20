@@ -1,9 +1,14 @@
 CFLAGS = -std=c11 -Wall
 LFLAGS = -lm
 
-SRCS = evaluation.c mpc.c
+SRC_DIR = $(CURDIR)/src
 DIST_DIR = $(CURDIR)/bin
-DIST = $(DIST_DIR)/evaluation
+
+SRCS = $(SRC_DIR)/*.c
+DIST = $(DIST_DIR)/lispy
+
+vpath %.c $(SRC_DIR)
+
 TAGS = GPATH GRTAGS GSYMS GTAGS TAGS
 
 OS := $(shell uname)
