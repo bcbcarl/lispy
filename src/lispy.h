@@ -27,15 +27,15 @@ lval* lval_add(lval*, lval*);
 void lval_expr_print(lval*, char, char);
 void lval_print(lval*);
 void lval_println(lval*);
+lval* add(lval*, lval*);
+lval* sub(lval*, lval*);
+lval* mul(lval*, lval*);
+lval* division(lval*, lval*);
+lval* mod(lval*, lval*);
+lval* expt(lval*, lval*);
+lval* min(lval*, lval*);
+lval* max(lval*, lval*);
 /*
-lval add(lval, lval);
-lval sub(lval, lval);
-lval mul(lval, lval);
-lval division(lval, lval);
-lval mod(lval, lval);
-lval expt(lval, lval);
-lval min(lval, lval);
-lval max(lval, lval);
 lval eval_op(char*, lval, lval);
 lval eval(mpc_ast_t*);
 */

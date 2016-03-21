@@ -134,48 +134,44 @@ void lval_println(lval* v) {
   putchar('\n');
 }
 
-/*
-lval add(lval x, lval y) {
-  return lval_num(x.num + y.num);
+lval* add(lval* x, lval* y) {
+  return lval_num(x->num + y->num);
 }
 
-lval sub(lval x, lval y) {
-  return lval_num(x.num - y.num);
+lval* sub(lval* x, lval* y) {
+  return lval_num(x->num - y->num);
 }
 
-lval mul(lval x, lval y) {
-  return lval_num(x.num * y.num);
+lval* mul(lval* x, lval* y) {
+  return lval_num(x->num * y->num);
 }
 
-lval division(lval x, lval y) {
-  if (y.num == 0) {
+lval* division(lval* x, lval* y) {
+  if (y->num == 0) {
     return lval_err("Division by zero.");
   }
 
-  div_t d = div(x.num, y.num);
+  div_t d = div(x->num, y->num);
   return lval_num(d.quot);
 }
 
-lval mod(lval x, lval y) {
-  return lval_num(fmod(x.num, y.num));
+lval* mod(lval* x, lval* y) {
+  return lval_num(fmod(x->num, y->num));
 }
 
-lval expt(lval x, lval y) {
-  return lval_num(pow(x.num, y.num));
+lval* expt(lval* x, lval* y) {
+  return lval_num(pow(x->num, y->num));
 }
 
-lval min(lval x, lval y) {
-  return (x.num < y.num) ?
-    lval_num(x.num) :
-    lval_num(y.num);
+lval* min(lval* x, lval* y) {
+  return lval_num(fmin(x->num, y->num));
 }
 
-lval max(lval x, lval y) {
-  return (x.num > y.num) ?
-    lval_num(x.num) :
-    lval_num(y.num);
+lval* max(lval* x, lval* y) {
+  return lval_num(fmax(x->num, y->num));
 }
 
+/*
 lval* eval_op(char* op, lval x, lval y) {
 
   if (x.type == LVAL_ERR) { return x; }

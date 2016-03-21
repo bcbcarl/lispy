@@ -7,7 +7,7 @@ DIST_DIR = $(CURDIR)/bin
 
 SRC_MAIN = $(SRC_DIR)/main.c
 SRCS = $(SRC_DIR)/lispy.c $(SRC_DIR)/mpc.c
-TESTS = $(TEST_DIR)/lispy.c
+TESTS = $(TEST_DIR)/lispy.c $(TEST_DIR)/assert_float.c
 DIST = $(DIST_DIR)/lispy
 
 TAGS = GPATH GRTAGS GSYMS GTAGS TAGS
