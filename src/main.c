@@ -56,8 +56,9 @@ int main(void) {
 
     mpc_result_t r;
     if (mpc_parse("<stdin>", input, Lispy, &r)) {
-      lval result = eval(r.output);
+      lval* result = lval_read(r.output);
       lval_println(result);
+      lval_del(result);
       mpc_ast_delete(r.output);
     } else {
       mpc_err_print(r.error);

@@ -55,21 +55,73 @@ void lval_del(lval* v) {
   free(v);
 }
 
-void lval_print(lval v) {
-  switch (v.type) {
+lval* lval_read_num(mpc_ast_t* t) {
+    errno = 0;
+    double x = strtod(t->contents, NULL);
+    return errno != ERANGE ?
+      lval_num(x) :
+      lval_err("invalid number.");
+}
+
+lval* lval_read(mpc_ast_t* t) {
+
+  if (strstr(t->tag, "number")) {
+    return lval_read_num(t);
+  }
+
+  if (strstr(t->tag, "symbol")) {
+    return lval_sym(t->contents);
+  }
+
+  lval* x = NULL;
+  if (strcmp(t->tag, ">") == 0) { x = lval_sexpr(); }
+  if (strcmp(t->tag, "sexpr") == 0) { x = lval_sexpr(); }
+
+  for (int i = 0; i < t->children_num; ++i) {
+    if (strcmp(t->children[i]->contents, "(") == 0) { continue; }
+    if (strcmp(t->children[i]->contents, ")") == 0) { continue; }
+    if (strcmp(t->children[i]->tag, "regex") == 0) { continue; }
+    x = lval_add(x, lval_read(t->children[i]));
+  }
+
+  return x;
+}
+
+lval* lval_add(lval* v, lval* x) {
+  v->count++;
+  v->cell = realloc(v->cell, sizeof(lval*) * v->count);
+  v->cell[v->count-1] = x;
+  return v;
+}
+
+void lval_expr_print(lval* v, char open, char close) {
+
+  putchar(open);
+
+  for (int i = 0; i < v->count; ++i) {
+    lval_print(v->cell[i]);
+
+    if (i != (v->count-1)) {
+      putchar(' ');
+    }
+  }
+
+  putchar(close);
+}
+
+void lval_print(lval* v) {
+  switch (v->type) {
   case LVAL_NUM:
-    printf("%.2f", v.num);
+    printf("%.2f", v->num);
     break;
   case LVAL_ERR:
-    if (v.err == LERR_DIV_ZERO) {
-      printf("Error: Division by zero.");
-    }
-    if (v.err == LERR_BAD_OP) {
-      printf("Error: Invalid operator.");
-    }
-    if (v.err == LERR_BAD_NUM) {
-      printf("Error: Invalid number.");
-    }
+    printf("Error: %s", v->err);
+    break;
+  case LVAL_SYM:
+    printf("%s", v->sym);
+    break;
+  case LVAL_SEXPR:
+    lval_expr_print(v, '(', ')');
     break;
   default:
     printf("Error: Unknown type.");
@@ -77,11 +129,12 @@ void lval_print(lval v) {
   }
 }
 
-void lval_println(lval v) {
+void lval_println(lval* v) {
   lval_print(v);
   putchar('\n');
 }
 
+/*
 lval add(lval x, lval y) {
   return lval_num(x.num + y.num);
 }
@@ -96,7 +149,7 @@ lval mul(lval x, lval y) {
 
 lval division(lval x, lval y) {
   if (y.num == 0) {
-    return lval_err(LERR_DIV_ZERO);
+    return lval_err("Division by zero.");
   }
 
   div_t d = div(x.num, y.num);
@@ -123,7 +176,7 @@ lval max(lval x, lval y) {
     lval_num(y.num);
 }
 
-lval eval_op(char* op, lval x, lval y) {
+lval* eval_op(char* op, lval x, lval y) {
 
   if (x.type == LVAL_ERR) { return x; }
   if (y.type == LVAL_ERR) { return y; }
@@ -143,27 +196,6 @@ lval eval_op(char* op, lval x, lval y) {
   if (strcmp(op, "min") == 0) { return min(x, y); }
   if (strcmp(op, "max") == 0) { return max(x, y); }
 
-  return lval_err(LERR_BAD_OP);
+  return lval_err("Invalid operator.");
 }
-
-lval eval(mpc_ast_t* t) {
-
-  if (strstr(t->tag, "number")) {
-    errno = 0;
-    double x = strtod(t->contents, NULL);
-    return errno != ERANGE ? lval_num(x) : lval_err(LERR_BAD_NUM);
-  }
-
-  char* op = t->children[1]->contents;
-  lval x = eval(t->children[2]);
-
-  if ((strcmp(op, "-") == 0) && !strstr(t->children[3]->tag, "expr")) {
-    return lval_num(-x.num);
-  };
-
-  for (int i = 3; strstr(t->children[i]->tag, "expr"); ++i) {
-    x = eval_op(op, x, eval(t->children[i]));
-  }
-
-  return x;
-}
+*/

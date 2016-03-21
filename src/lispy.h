@@ -21,8 +21,13 @@ lval* lval_err(char*);
 lval* lval_sym(char*);
 lval* lval_sexpr(void);
 void lval_del(lval*);
-void lval_print(lval);
-void lval_println(lval);
+lval* lval_read_num(mpc_ast_t*);
+lval* lval_read(mpc_ast_t*);
+lval* lval_add(lval*, lval*);
+void lval_expr_print(lval*, char, char);
+void lval_print(lval*);
+void lval_println(lval*);
+/*
 lval add(lval, lval);
 lval sub(lval, lval);
 lval mul(lval, lval);
@@ -33,5 +38,6 @@ lval min(lval, lval);
 lval max(lval, lval);
 lval eval_op(char*, lval, lval);
 lval eval(mpc_ast_t*);
+*/
 
 #endif
