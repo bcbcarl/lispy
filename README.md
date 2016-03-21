@@ -6,7 +6,7 @@ http://www.buildyourownlisp.com/
 
 ## Usage
 
-Run `./bin/evaluation`.
+Run `./bin/lispy`.
 
 ## Examples
 
