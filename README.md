@@ -11,7 +11,7 @@ Run `./bin/lispy`.
 ## Examples
 
 ```
-Lispy Version 0.0.0.0.4
+Lispy Version 0.0.0.0.5
 Press Ctrl+c to Exit
 
 lispy> + 5 6

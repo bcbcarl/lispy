@@ -3,18 +3,24 @@
 
 #include "mpc.h"
 
-typedef struct {
+typedef struct lval {
   int type;
   double num;
-  int err;
+  char* err;
+  char* sym;
+  int count;
+  struct lval** cell;
 } lval;
 
-enum { LVAL_NUM, LVAL_ERR };
+enum { LVAL_NUM, LVAL_ERR, LVAL_SYM, LVAL_SEXPR };
 enum { LERR_DIV_ZERO, LERR_BAD_OP, LERR_BAD_NUM };
 
 
-lval lval_num(double);
-lval lval_err(int);
+lval* lval_num(double);
+lval* lval_err(char*);
+lval* lval_sym(char*);
+lval* lval_sexpr(void);
+void lval_del(lval*);
 void lval_print(lval);
 void lval_println(lval);
 lval add(lval, lval);
