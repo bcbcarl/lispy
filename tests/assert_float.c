@@ -2,8 +2,6 @@
 #include <stdarg.h>
 #include <setjmp.h>
 #include <cmocka.h>
-#include <math.h>
-#include <float.h>
 
 int float_equal_display_error(float left, float right) {
 
