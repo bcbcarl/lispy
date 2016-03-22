@@ -12,6 +12,7 @@ void test_add(void **state) {
 
   x = lval_num(3.);
   y = lval_num(3.);
+
   assert_float_equal(add(x, y)->num, 6.);
   lval_del(x);
   lval_del(y);
@@ -47,6 +48,12 @@ void test_mul(void **state) {
   x = lval_num(3.);
   y = lval_num(3.);
   assert_float_equal(mul(x, y)->num, 9.);
+  lval_del(x);
+  lval_del(y);
+
+  x = lval_num(3.);
+  y = lval_num(-3.);
+  assert_float_equal(mul(x, y)->num, -9.);
   lval_del(x);
   lval_del(y);
 }
@@ -101,8 +108,14 @@ void test_min(void **state) {
   lval* y = NULL;
 
   x = lval_num(3.);
-  y = lval_num(5.);
+  y = lval_num(3.);
   assert_float_equal(min(x, y)->num, 3.);
+  lval_del(x);
+  lval_del(y);
+
+  x = lval_num(3.);
+  y = lval_num(-3.);
+  assert_float_equal(min(x, y)->num, -3.);
   lval_del(x);
   lval_del(y);
 }
